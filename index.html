@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shalom Conde Armando · Sage Developer & Consultant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+@property --p { syntax: "<number>"; initial-value: 0; inherits: true; }
+@property --n { syntax: "<integer>"; initial-value: 0; inherits: true; }
+
+:root {
+  --white: #ffffff;
+  --mist: #f6f1ff;
+  --lilac: #e4d8ff;
+  --orchid: #a77bff;
+  --violet: #7c3aed;
+  --grape: #4c1d95;
+  --ink: #24123f;
+  --soft: #5f5278;
+  --serif: "Fraunces", Georgia, serif;
+  --sans: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+  --u: 10px;
+}
+* { box-sizing: border-box; margin: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); font-weight: 400; color: var(--ink); background: var(--white); line-height: 1.65; overflow-x: hidden; }
+:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
+
+/* ---------- Background ---------- */
+.bg { position: fixed; inset: 0; z-index: -1; background: linear-gradient(180deg, #fff 0%, var(--mist) 100%); overflow: hidden; }
+.bg i { position: absolute; border-radius: 50%; filter: blur(70px); animation: drift 20s ease-in-out infinite alternate; }
+.bg i:nth-child(1) { width: 46vmax; height: 46vmax; background: var(--lilac); top: -14vmax; right: -10vmax; }
+.bg i:nth-child(2) { width: 38vmax; height: 38vmax; background: #d9c6ff; bottom: -12vmax; left: -12vmax; opacity: .7; animation-duration: 26s; }
+.bg::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(124,58,237,.18) 1.2px, transparent 1.4px); background-size: 28px 28px; mask-image: linear-gradient(#000, transparent 70%); }
+@keyframes drift { to { transform: translate(5vmax, 4vmax) scale(1.12); } }
+
+main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(1.2rem, 4vw, 2.5rem); }
+section { padding-top: clamp(3.5rem, 8vw, 6rem); }
+h2 { font-family: var(--serif); font-weight: 700; font-size: clamp(2rem, 4.6vw, 3rem); color: var(--grape); letter-spacing: -.02em; margin-bottom: .6rem; }
+.sub { color: var(--soft); max-width: 56ch; margin-bottom: 2.2rem; }
+
+/* ---------- Hero ---------- */
+.hero { min-height: 100svh; display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 2rem; padding: 3rem 0; }
+.tag { display: inline-flex; align-items: center; gap: .6rem; padding: .45rem 1.1rem; border-radius: 99px; background: var(--white); border: 1px solid var(--lilac); color: var(--violet); font-weight: 600; font-size: .85rem; box-shadow: 0 6px 20px rgba(124,58,237,.12); animation: rise .9s both; }
+.tag::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--violet); animation: ping 2s infinite; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(124,58,237,.6); } 100% { box-shadow: 0 0 0 12px rgba(124,58,237,0); } }
+.hero h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(3.2rem, 8.5vw, 6.6rem); line-height: .96; letter-spacing: -.035em; margin: 1.3rem 0 1rem; color: var(--grape); animation: rise 1s .1s both; }
+.hero h1 span { display: block; font-style: italic; font-weight: 400; font-size: .62em; letter-spacing: -.02em;
+  background: linear-gradient(100deg, var(--violet), var(--orchid), var(--violet)); background-size: 220% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent; animation: sheen 6s linear infinite; }
+@keyframes sheen { to { background-position: -220% 0; } }
+@keyframes rise { from { opacity: 0; transform: translateY(34px); filter: blur(8px); } }
+.hero p.lede { max-width: 50ch; color: var(--soft); font-size: 1.08rem; animation: rise 1s .25s both; }
+.cta { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: 2rem; animation: rise 1s .4s both; }
+.btn { padding: .9rem 1.8rem; border-radius: 99px; text-decoration: none; font-weight: 600; font-size: .95rem; transition: transform .3s, box-shadow .3s; }
+.btn.fill { color: #fff; background: linear-gradient(120deg, var(--violet), var(--orchid)); box-shadow: 0 10px 28px rgba(124,58,237,.35); }
+.btn.line { color: var(--violet); background: var(--white); border: 1.5px solid var(--lilac); }
+.btn:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(124,58,237,.3); }
+
+/* Sage orbit */
+.orbit { position: relative; width: calc(var(--u) * 42); aspect-ratio: 1; margin-inline: auto; animation: rise 1.2s .3s both; }
+.core { position: absolute; inset: 34%; border-radius: 50%; display: grid; place-items: center; font-family: var(--serif); font-weight: 700; font-size: calc(var(--u) * 3.2); color: #fff; letter-spacing: -.03em;
+  background: radial-gradient(circle at 30% 25%, var(--orchid), var(--violet) 55%, var(--grape)); box-shadow: 0 20px 50px rgba(124,58,237,.45); animation: breathe 4s ease-in-out infinite; }
+@keyframes breathe { 50% { transform: scale(1.06); box-shadow: 0 24px 70px rgba(124,58,237,.6); } }
+.path { position: absolute; border-radius: 50%; border: 1.5px dashed rgba(124,58,237,.35); top: 50%; left: 50%; translate: -50% -50%; animation: turn var(--t) linear infinite; }
+.path.a { --t: 26s; width: calc(var(--u) * 24); aspect-ratio: 1; --r: calc(var(--u) * 12); }
+.path.b { --t: 40s; width: calc(var(--u) * 38); aspect-ratio: 1; --r: calc(var(--u) * 19); animation-direction: reverse; }
+@keyframes turn { to { rotate: 360deg; } }
+@keyframes unturn { to { rotate: -360deg; } }
+.slot { position: absolute; top: 50%; left: 50%; width: 0; height: 0; transform: rotate(var(--a)) translateY(calc(var(--r) * -1)); }
+.cc { position: absolute; left: 0; top: 0; animation: unturn var(--t) linear infinite; }
+.path.b .cc { animation-direction: reverse; }
+.orb { display: block; white-space: nowrap; transform: translate(-50%, -50%) rotate(calc(var(--a) * -1)); padding: .5rem 1rem; border-radius: 99px; font-size: .82rem; font-weight: 600; color: var(--grape);
+  background: rgba(255,255,255,.92); border: 1px solid var(--lilac); box-shadow: 0 10px 26px rgba(124,58,237,.22); }
+.orb.solid { color: #fff; background: var(--violet); border-color: var(--violet); }
+
+/* ---------- Marquee ---------- */
+.marquee { margin-inline: calc(50% - 50vw); overflow: hidden; background: linear-gradient(90deg, var(--grape), var(--violet), var(--grape)); padding: .9rem 0; white-space: nowrap; }
+.track { display: inline-flex; gap: 2.4rem; animation: slide 30s linear infinite; padding-left: 2.4rem; }
+.marquee:hover .track { animation-play-state: paused; }
+.track span { font-family: var(--serif); font-style: italic; font-size: 1.4rem; color: #fff; }
+.track b { color: var(--lilac); font-weight: 400; }
+@keyframes slide { to { transform: translateX(-50%); } }
+
+/* ---------- Skills bento ---------- */
+.bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.1rem; }
+.tile { padding: 1.6rem; border-radius: 28px; background: rgba(255,255,255,.85); border: 1px solid var(--lilac); backdrop-filter: blur(6px); transition: transform .4s, box-shadow .4s; }
+.tile:hover { transform: translateY(-6px) rotate(-.6deg); box-shadow: 0 22px 50px rgba(124,58,237,.18); }
+.tile.big { grid-column: span 3; background: linear-gradient(150deg, var(--violet), var(--grape)); color: #fff; border: 0; }
+.tile.mid { grid-column: span 3; }
+.tile.sm { grid-column: span 2; }
+.tile h3 { font-family: var(--serif); font-size: 1.45rem; margin-bottom: .8rem; }
+.tile.big h3 { color: #fff; }
+.pills { display: flex; flex-wrap: wrap; gap: .45rem; }
+.pills span { padding: .3rem .85rem; border-radius: 99px; font-size: .85rem; background: var(--mist); color: var(--grape); border: 1px solid var(--lilac); transition: all .25s; }
+.pills span:hover { background: var(--violet); color: #fff; transform: scale(1.06); }
+.tile.big .pills span { background: rgba(255,255,255,.14); color: #fff; border-color: rgba(255,255,255,.3); }
+.tile.big .pills span:hover { background: #fff; color: var(--violet); }
+@media (max-width: 860px) { .tile.big, .tile.mid, .tile.sm { grid-column: span 6; } }
+
+/* ---------- Experience ---------- */
+.timeline { position: relative; padding-left: 2.4rem; }
+.timeline::before { content: ""; position: absolute; left: 8px; top: 6px; bottom: 0; width: 3px; border-radius: 3px; background: linear-gradient(var(--violet), var(--lilac)); animation: grow 1.6s ease-out both; transform-origin: top; }
+@keyframes grow { from { transform: scaleY(0); } }
+.job { position: relative; margin-bottom: 2.4rem; padding: 1.6rem 1.8rem; border-radius: 26px; background: var(--white); border: 1px solid var(--lilac); box-shadow: 0 14px 40px rgba(124,58,237,.08); }
+.job::before { content: ""; position: absolute; left: -2.4rem; top: 1.9rem; width: 19px; height: 19px; border-radius: 50%; background: #fff; border: 4px solid var(--violet); box-shadow: 0 0 0 6px var(--lilac); }
+.job h3 { font-family: var(--serif); font-size: 1.6rem; color: var(--grape); line-height: 1.2; }
+.job .meta { color: var(--violet); font-weight: 600; font-size: .9rem; margin: .3rem 0 .6rem; }
+.job .tech { font-size: .85rem; color: var(--soft); margin-bottom: .8rem; }
+.job h4 { font-size: .95rem; color: var(--grape); margin: 1rem 0 .3rem; }
+.job ul { padding-left: 1.1rem; color: var(--soft); }
+.job li { margin-bottom: .3rem; }
+.job li::marker { color: var(--orchid); }
+.sage { color: var(--violet); font-weight: 600; }
+
+/* ---------- Certification graph ---------- */
+.lab { margin-top: 3rem; padding: clamp(1.6rem, 4vw, 3rem); border-radius: 36px; color: #fff; position: relative; overflow: hidden;
+  background: radial-gradient(circle at 15% 0%, #8b4dff, transparent 55%), linear-gradient(160deg, var(--grape), #2b0f5c); }
+.lab h2 { color: #fff; }
+.lab .sub { color: #dccdff; }
+.lab-grid { display: grid; grid-template-columns: 1.1fr 2fr; gap: 2rem; align-items: center; }
+.rings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem 1rem; }
+.ring { --p: var(--v); --n: var(--v); --size: 118px; position: relative; width: var(--size); aspect-ratio: 1; margin-inline: auto; display: grid; place-items: center; animation: fill 2.2s cubic-bezier(.2,.8,.2,1) both; }
+.ring::before { content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(from -90deg, #fff 0 calc(var(--p) * 3.6deg), rgba(255,255,255,.14) 0);
+  mask: radial-gradient(farthest-side, transparent calc(100% - 11px), #000 calc(100% - 10px)); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 11px), #000 calc(100% - 10px)); filter: drop-shadow(0 0 8px rgba(255,255,255,.5)); }
+.ring .num { counter-reset: n var(--n); font-family: var(--serif); font-weight: 700; font-size: 1.9rem; line-height: 1; }
+.ring .num::after { content: counter(n) "%"; }
+.ring.hero-ring { --size: 220px; }
+.ring.hero-ring .num { font-size: 3.6rem; }
+.ring.hero-ring::before { background: conic-gradient(from -90deg, #fff 0 calc(var(--p) * 3.6deg), rgba(255,255,255,.14) 0); mask: radial-gradient(farthest-side, transparent calc(100% - 18px), #000 calc(100% - 17px)); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 18px), #000 calc(100% - 17px)); }
+.cap { text-align: center; font-size: .82rem; color: #e8deff; margin-top: .5rem; line-height: 1.35; }
+.cap b { display: block; color: #fff; font-weight: 600; }
+@keyframes fill { from { --p: 0; --n: 0; } }
+.avg { text-align: center; }
+.avg .cap { font-size: .95rem; }
+@media (max-width: 900px) { .lab-grid { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .rings { grid-template-columns: repeat(2, 1fr); } }
+
+.badges { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.6rem; }
+.badge { padding: .55rem 1.1rem; border-radius: 99px; font-size: .86rem; background: var(--white); border: 1px solid var(--lilac); color: var(--ink); transition: all .3s; }
+.badge b { color: var(--violet); font-weight: 600; }
+.badge:hover { background: var(--violet); color: #fff; transform: translateY(-3px); }
+.badge:hover b { color: #fff; }
+
+/* ---------- Education / languages / contact ---------- */
+.duo { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
+.duo .tile:hover { transform: none; }
+.langs { display: flex; flex-wrap: wrap; gap: .5rem; }
+.langs span { padding: .4rem 1rem; border-radius: 99px; background: var(--violet); color: #fff; font-size: .88rem; font-weight: 500; }
+.contact { text-align: center; padding-bottom: 5rem; }
+.contact a.big { display: block; width: fit-content; margin: .3rem auto; font-family: var(--serif); font-weight: 700; font-size: clamp(1.4rem, 4.2vw, 2.6rem); text-decoration: none; overflow-wrap: anywhere;
+  background: linear-gradient(100deg, var(--violet), var(--orchid), var(--violet)); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: sheen 6s linear infinite; }
+footer { text-align: center; padding: 1.6rem; color: var(--soft); font-size: .8rem; border-top: 1px solid var(--lilac); }
+
+/* ---------- Scroll-driven (progressive) ---------- */
+@supports (animation-timeline: view()) {
+  .reveal { animation: reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 50%; }
+  .ring { animation: fill linear both; animation-timeline: view(); animation-range: entry 10% cover 45%; }
+  @keyframes reveal { from { opacity: 0; transform: translateY(46px) scale(.97); } }
+  .progress { position: fixed; top: 0; left: 0; right: 0; height: 4px; z-index: 10; transform-origin: left; background: linear-gradient(90deg, var(--orchid), var(--violet)); animation: bar linear both; animation-timeline: scroll(root); }
+  @keyframes bar { from { transform: scaleX(0); } }
+}
+@media (max-width: 860px) { .hero { grid-template-columns: 1fr; padding-top: 5rem; } :root { --u: 7.4px; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<div class="bg" aria-hidden="true"><i></i><i></i></div>
+
+<main>
+  <header class="hero">
+    <div>
+      <h1>Shalom <span>Conde Armando</span></h1>
+      <p class="lede">Full stack developer and Sage consultant in Pretoria East. I design Sage 300, Sage CRM and Sage X3 solutions from requirements to go-live, and connect them with clean APIs. Now growing into Flutter mobile and Salesforce.</p>
+      <nav class="cta">
+        <a class="btn fill" href="#contact">Work with me</a>
+        <a class="btn line" href="#certs">See my Sage scores</a>
+      </nav>
+    </div>
+    <div class="orbit" aria-hidden="true">
+      <div class="core">Specialist</div>
+      <div class="path a">
+        <div class="slot" style="--a:0deg"><div class="cc"><span class="orb solid">Sage 300</span></div></div>
+        <div class="slot" style="--a:180deg"><div class="cc"><span class="orb">Sage CRM</span></div></div>
+      </div>
+      <div class="path b">
+        <div class="slot" style="--a:30deg"><div class="cc"><span class="orb">Sage X3</span></div></div>
+        <div class="slot" style="--a:150deg"><div class="cc"><span class="orb solid">Sage 300cloud</span></div></div>
+        <div class="slot" style="--a:270deg"><div class="cc"><span class="orb">Sage 200 Evolution</span></div></div>
+      </div>
+    </div>
+  </header>
+</main>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>Sage 300</span><b>✦</b><span>Sage CRM</span><b>✦</b><span>Sage X3</span><b>✦</b><span>Sage 200 Evolution</span><b>✦</b><span>Sage 300cloud</span><b>✦</b><span>Sage University</span><b>✦</b>
+    <span>Sage 300</span><b>✦</b><span>Sage CRM</span><b>✦</b><span>Sage X3</span><b>✦</b><span>Sage 200 Evolution</span><b>✦</b><span>Sage 300cloud</span><b>✦</b><span>Sage University</span><b>✦</b>
+  </div>
+</div>
+
+<main>
+  <section id="skills">
+    <h2 class="reveal">What I build with</h2>
+    <p class="sub reveal">Enterprise Sage work at the core, with the full stack around it.</p>
+    <div class="bento">
+      <article class="tile big reveal">
+        <h3>Sage ecosystem</h3>
+        <div class="pills"><span>Sage 300 (Accpac)</span><span>Sage CRM</span><span>Sage X3</span><span>Sage 300 Web API</span><span>Sage ERP integration</span><span>CRM &amp; BPM modules</span><span>Requirements analysis</span><span>Solution design</span></div>
+      </article>
+      <article class="tile mid reveal">
+        <h3>Back-end and data</h3>
+        <div class="pills"><span>C#</span><span>.NET Framework</span><span>.NET Core</span><span>ASP.NET MVC</span><span>Web APIs</span><span>Entity Framework</span><span>LINQ to SQL</span><span>SQL Server</span><span>MySQL</span><span>T-SQL</span></div>
+      </article>
+      <article class="tile sm reveal">
+        <h3>Mobile</h3>
+        <div class="pills"><span>Dart</span><span>Flutter</span><span>Provider</span><span>Firebase</span><span>Xamarin</span></div>
+      </article>
+      <article class="tile sm reveal">
+        <h3>Integration</h3>
+        <div class="pills"><span>REST</span><span>SOAP</span><span>Payment gateways</span><span>Infoslip</span><span>Middleware</span></div>
+      </article>
+      <article class="tile sm reveal">
+        <h3>Reporting and DevOps</h3>
+        <div class="pills"><span>Crystal Reports</span><span>SSRS</span><span>4Flow BPM</span><span>GitHub Actions</span><span>Google Play</span></div>
+      </article>
+      <article class="tile mid reveal">
+        <h3>Web and delivery</h3>
+        <div class="pills"><span>HTML5</span><span>CSS3</span><span>Bootstrap</span><span>JavaScript</span><span>Angular</span><span>AJAX</span><span>Agile / SDLC</span><span>Code reviews</span><span>Stakeholder reporting</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2 class="reveal">Experience</h2>
+    <div class="timeline">
+      <article class="job reveal">
+        <h3>Software Developer &amp; <span class="sage">Sage 300</span> Consultant</h3>
+        <p class="meta">DotCoLab · January 2022 – February 2026</p>
+        <p class="tech">C# (.NET), SQL Server, Sage 300 ERP, Sage CRM, RESTful APIs, Crystal Reports, SSRS, MVC</p>
+        <h4>Sage 300 consulting and implementation</h4>
+        <ul>
+          <li>Led full-cycle Sage 300 implementations, from requirements to deployment and training.</li>
+          <li>Configured and customised Accounts Payable, Accounts Receivable, General Ledger and Inventory modules.</li>
+          <li>Delivered Sage 300 Cloud data structure implementations and post-go-live optimisation.</li>
+        </ul>
+        <h4>API development and integration</h4>
+        <ul>
+          <li>Built RESTful APIs connecting Sage 300 with third-party systems, and set up Sage 300 Web API access.</li>
+          <li>Integrated payment gateways, Infoslip and AP Sundry Creditors, with custom middleware for data exchange.</li>
+        </ul>
+        <h4>Delivery, reviews and clients</h4>
+        <ul>
+          <li>Coordinated timelines, milestones, status reports and sign-off documentation.</li>
+          <li>Ran code reviews and reviewed API specs and architecture before deployment.</li>
+          <li>Worked directly with JSE-listed companies and municipal governments, training their technical teams.</li>
+        </ul>
+      </article>
+      <article class="job reveal">
+        <h3>Intern Developer</h3>
+        <p class="meta">Future IT Solutions · March 2019 – March 2021</p>
+        <p class="tech">C# (.NET), SQL, ASP.NET, Xamarin, Bootstrap, JavaScript, Angular, PHP, Flutter, GitHub Actions</p>
+        <ul>
+          <li>Built and maintained financial software, including a Job Card to Invoice workflow.</li>
+          <li>Designed SQL Server databases and contributed to API integrations with client platforms.</li>
+          <li>Turned business needs into technical specs, then tested, debugged and documented the results.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="certs">
+    <div class="lab">
+      <h2>Sage exam scores</h2>
+      <p class="sub">Six scored Sage assessments, each ring filling to the percentage achieved.</p>
+      <div class="lab-grid">
+        <div class="avg">
+          <div class="ring hero-ring" style="--v:87"><span class="num"></span></div>
+          <p class="cap"><b>Average score</b>across the six assessments (524 ÷ 6)</p>
+        </div>
+        <div class="rings">
+          <div><div class="ring" style="--v:93"><span class="num"></span></div><p class="cap"><b>Sage 300cloud</b>Practical Assessment, 2026</p></div>
+          <div><div class="ring" style="--v:90"><span class="num"></span></div><p class="cap"><b>Sage 300</b>Technical Consultant</p></div>
+          <div><div class="ring" style="--v:89"><span class="num"></span></div><p class="cap"><b>Sage X3</b>System Administration, 2026</p></div>
+          <div><div class="ring" style="--v:88"><span class="num"></span></div><p class="cap"><b>Sage 300</b>Consultant Distribution</p></div>
+          <div><div class="ring" style="--v:84"><span class="num"></span></div><p class="cap"><b>Sage 200 Evolution</b>LU3 Product Consultant, 2026</p></div>
+          <div><div class="ring" style="--v:80"><span class="num"></span></div><p class="cap"><b>Sage 300</b>Consultant Financials</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="badges reveal">
+      <span class="badge"><b>Sage CRM</b> Certified Consultant · 2026</span>
+      <span class="badge"><b>Sage Partner Cloud</b> Provisioning Portal Consultant · 2023</span>
+      <span class="badge"><b>IBM</b> AI Fundamentals</span>
+      <span class="badge"><b>Cisco</b> Introduction to Cybersecurity</span>
+      <span class="badge"><b>Cisco</b> IT Customer Basics</span>
+      <span class="badge"><b>Project Management</b> Fundamentals</span>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="duo">
+      <article class="tile reveal">
+        <h3>Education</h3>
+        <p><span class="sage">Higher National Diploma in Information Technology</span>, Software Development<br><small>Belgium Campus IT Varsity College, 2019 – 2021</small></p>
+        <p style="margin-top:.8rem">Matric Certificate<br><small>Matthews Phosa College, 2015</small></p>
+      </article>
+      <article class="tile reveal">
+        <h3>Languages</h3>
+        <div class="langs"><span>English</span><span>Portuguese</span><span>IsiZulu</span><span>Ndebele</span><span>SiSwati</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2 class="reveal">Let’s build something</h2>
+    <p class="sub reveal" style="margin-inline:auto">Pretoria East, Gauteng, South Africa. References available on request.</p>
+    <a class="big reveal" href="mailto:grahamshalom1@gmail.com">grahamshalom1@gmail.com</a>
+    <a class="big reveal" href="tel:+27813719046">+27 81 371 9046</a>
+  </section>
+</main>
+
+<footer>© Shalom Conde Armando</footer>
+</body>
+</html>
